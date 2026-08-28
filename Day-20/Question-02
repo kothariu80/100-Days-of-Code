@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_SIZE 100
+
+int main() {
+    char binary[MAX_SIZE];
+    char onesComplement[MAX_SIZE];
+    int i;
+    int isValid = 1; // Flag to track input validity
+
+    // 1. Input the binary number from the user
+    printf("Enter a binary number: ");
+    scanf("%99s", binary);
+
+    int length = strlen(binary);
+
+    // 2. Process each bit to find the 1's complement
+    for (i = 0; i < length; i++) {
+        if (binary[i] == '1') {
+            onesComplement[i] = '0';
+        } else if (binary[i] == '0') {
+            onesComplement[i] = '1';
+        } else {
+            // If the user inputs anything other than 0 or 1
+            isValid = 0;
+            break;
+        }
+    }
+    
+    // Null-terminate the output string
+    onesComplement[length] = '\0';
+
+    // 3. Print the result or an error message
+    if (isValid) {
+        printf("Original Binary : %s\n", binary);
+        printf("1's Complement  : %s\n", onesComplement);
+    } else {
+        printf("Error: Invalid binary input. Please enter only 0s and 1s.\n");
+    }
+
+    return 0;
+}
