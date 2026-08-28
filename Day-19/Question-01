@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+// Function to find the GCD using the Euclidean algorithm
+int find_gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int main() {
+    int num1, num2, gcd, lcm;
+
+    printf("Enter two positive integers: ");
+    if (scanf("%d %d", &num1, &num2) != 2) {
+        printf("Invalid input.\n");
+        return 1;
+    }
+
+    // Ensure inputs are positive for the logic to hold correctly
+    if (num1 <= 0 || num2 <= 0) {
+        printf("Please enter positive numbers greater than 0.\n");
+        return 1;
+    }
+
+    // Calculate GCD first
+    gcd = find_gcd(num1, num2);
+
+    // Calculate LCM using the formula: (a * b) / GCD
+    lcm = (num1 * num2) / gcd;
+
+    printf("The LCM of %d and %d is: %d\n", num1, num2, lcm);
+
+    return 0;
+}
