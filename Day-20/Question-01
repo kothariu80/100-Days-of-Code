@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    long long num, temp;
+    int digit;
+    long long product = 1;
+    int has_odd_digit = 0; // Flag to check if the number contains any odd digits
+
+    printf("Enter an integer: ");
+    if (scanf("%lld", &num) != 1) {
+        printf("Invalid input.\n");
+        return 1;
+    }
+
+    // Use absolute value to correctly handle negative integers
+    temp = llabs(num);
+
+    // Special case for 0 (0 is an even digit)
+    if (temp == 0) {
+        has_odd_digit = 0;
+    } else {
+        while (temp > 0) {
+            digit = temp % 10; // Extract the last digit
+
+            // Check if the digit is odd
+            if (digit % 2 != 0) {
+                product *= digit;
+                has_odd_digit = 1; // Mark that we found at least one odd digit
+            }
+
+            temp /= 10; // Remove the last digit
+        }
+    }
+
+    // Display the result based on whether an odd digit was found
+    if (has_odd_digit) {
+        printf("The product of the odd digits of %lld is: %lld\n", num, product);
+    } else {
+        printf("The number %lld contains no odd digits. Product is: 0\n", num);
+    }
+
+    return 0;
+}
