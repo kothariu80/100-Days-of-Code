@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+int main() {
+    int num, originalNum;
+    int firstDigit, lastDigit;
+    int digitsCount = 0;
+    int placeValue = 1;
+    int swappedNum;
+
+    // Get input from the user
+    printf("Enter any number: ");
+    if (scanf("%d", &num) != 1) {
+        printf("Invalid input.\n");
+        return 1;
+    }
+
+    originalNum = num;
+
+    // Handle negative numbers
+    if (num < 0) {
+        num = -num;
+    }
+
+    // Step 1: Find the last digit
+    lastDigit = num % 10;
+
+    // Step 2: Find the first digit and calculate the place value multiplier
+    int temp = num;
+    while (temp >= 10) {
+        temp /= 10;
+        placeValue *= 10;
+    }
+    firstDigit = temp;
+
+    // Step 3: Extract the middle part and rebuild the swapped number
+    // Remove the first digit, remove the last digit, then put them back swapped
+    int middlePart = (num % placeValue) / 10;
+    
+    swappedNum = (lastDigit * placeValue) + (middlePart * 10) + firstDigit;
+
+    // Reapply the negative sign if the original number was negative
+    if (originalNum < 0) {
+        swappedNum = -swappedNum;
+    }
+
+    // Print the result
+    printf("Original number: %d\n", originalNum);
+    printf("Number after swapping first and last digit: %d\n", swappedNum);
+
+    return 0;
+}
