@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <limits.h> // Required for INT_MIN
+
+int main() {
+    int arr[] = {12, 35, 1, 10, 34, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    
+    // Handle edge case where array has fewer than 2 elements
+    if (n < 2) {
+        printf("Invalid Input: Array must contain at least two elements.\n");
+        return 1;
+    }
+
+    // Initialize both tracking variables to the lowest possible integer value
+    int first = INT_MIN;
+    int second = INT_MIN;
+
+    // Traverse the array in a single loop
+    for (int i = 0; i < n; i++) {
+        // If current element is larger than the largest so far
+        if (arr[i] > first) {
+            second = first; // Old largest becomes the second largest
+            first = arr[i]; // Update the largest element
+        }
+        // If current element is between the first and second largest
+        else if (arr[i] > second && arr[i] != first) {
+            second = arr[i]; // Update the second largest element
+        }
+    }
+
+    // Check if a valid second largest element was found
+    if (second == INT_MIN) {
+        printf("There is no second largest element (all elements might be equal).\n");
+    } else {
+        printf("The largest element is: %d\n", first);
+        printf("The second largest element is: %d\n", second);
+    }
+
+    return 0;
+}
