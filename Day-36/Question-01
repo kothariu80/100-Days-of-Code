@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+int main() {
+    int rows, cols;
+
+    // 1. Get matrix dimensions from the user
+    printf("Enter the number of rows and columns: ");
+    if (scanf("%d %d", &rows, &cols) != 2) {
+        printf("Invalid input.\n");
+        return 1;
+    }
+
+    // Declare the 2D array (Variable Length Array)
+    int matrix[rows][cols];
+
+    // 2. Read the matrix elements using nested loops
+    printf("Enter the elements of the matrix (%d x %d):\n", rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    // 3. Print the matrix format using nested loops
+    printf("\nThe resulting matrix is:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            // Using %4d handles spacing neatly to keep columns aligned
+            printf("%4d ", matrix[i][j]); 
+        }
+        // Print a newline character after each row finishes printing
+        printf("\n"); 
+    }
+
+    return 0;
+}
