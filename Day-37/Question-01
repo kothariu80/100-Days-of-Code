@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+#define MAX_ROWS 100
+#define MAX_COLS 100
+
+int main() {
+    int matrix[MAX_ROWS][MAX_COLS];
+    int rowSums[MAX_ROWS];
+    int rows, cols;
+
+    // 1. Input the dimensions of the matrix
+    printf("Enter the number of rows: ");
+    scanf("%d", &rows);
+    printf("Enter the number of columns: ");
+    scanf("%d", &cols);
+
+    // Validate size boundaries
+    if (rows > MAX_ROWS || cols > MAX_COLS || rows <= 0 || cols <= 0) {
+        printf("Invalid dimensions! Please enter values between 1 and 100.\n");
+        return 1;
+    }
+
+    // 2. Input the matrix elements
+    printf("\nEnter the elements of the matrix:\n");
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            printf("Element [%d][%d]: ", i, j);
+            scanf("%d", &matrix[i][j]);
+        }
+    }
+
+    // 3. Calculate the sum of each row and store it in the rowSums array
+    for (int i = 0; i < rows; i++) {
+        int current_row_sum = 0;
+        for (int j = 0; j < cols; j++) {
+            current_row_sum += matrix[i][j];
+        }
+        rowSums[i] = current_row_sum; // Store the final sum in the 1D array
+    }
+
+    // 4. Display the calculated row sums
+    printf("\nThe sum of each row stored in the array:\n");
+    for (int i = 0; i < rows; i++) {
+        printf("Sum of Row %d = %d\n", i + 1, rowSums[i]);
+    }
+
+    return 0;
+}
