@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+#define MAX 10 // Maximum size for the matrices
+
+int main() {
+    int mat1[MAX][MAX], mat2[MAX][MAX], result[MAX][MAX];
+    int r1, c1, r2, c2;
+    int i, j, k;
+
+    // 1. Input dimensions of the first matrix
+    printf("Enter rows and columns for the first matrix: ");
+    scanf("%d %d", &r1, &c1);
+
+    // 2. Input dimensions of the second matrix
+    printf("Enter rows and columns for the second matrix: ");
+    scanf("%d %d", &r2, &c2);
+
+    // 3. Check if matrix multiplication is possible
+    if (c1 != r2) {
+        printf("Error! Columns of the first matrix must match rows of the second matrix.\n");
+        return 0;
+    }
+
+    // 4. Input elements of the first matrix
+    printf("\nEnter elements of the first matrix:\n");
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c1; j++) {
+            printf("Enter element [%d][%d]: ", i, j);
+            scanf("%d", &mat1[i][j]);
+        }
+    }
+
+    // 5. Input elements of the second matrix
+    printf("\nEnter elements of the second matrix:\n");
+    for (i = 0; i < r2; i++) {
+        for (j = 0; j < c2; j++) {
+            printf("Enter element [%d][%d]: ", i, j);
+            scanf("%d", &mat2[i][j]);
+        }
+    }
+
+    // 6. Initialize the result matrix elements to 0
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++) {
+            result[i][j] = 0;
+        }
+    }
+
+    // 7. Core Core Logic: Multiply mat1 and mat2
+    for (i = 0; i < r1; i++) {         // Outer loop tracks rows of mat1
+        for (j = 0; j < c2; j++) {     // Middle loop tracks columns of mat2
+            for (k = 0; k < c1; k++) { // Inner loop computes the dot product
+                result[i][j] += mat1[i][k] * mat2[k][j];
+            }
+        }
+    }
+
+    // 8. Display the resultant matrix
+    printf("\nResultant Matrix:\n");
+    for (i = 0; i < r1; i++) {
+        for (j = 0; j < c2; j++) {
+            printf("%d\t", result[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
