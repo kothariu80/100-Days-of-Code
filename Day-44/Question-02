@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main() {
+    char str[100];
+    int i = 0;
+
+    // Prompt user for input
+    printf("Enter a string: ");
+    // Reads a line of text including spaces until a newline is hit
+    fgets(str, sizeof(str), stdin); 
+
+    // Traverse the string character by character
+    while (str[i] != '\0') {
+        if (str[i] == ' ') {
+            str[i] = '-';
+        }
+        i++;
+    }
+
+    // Print the modified string
+    printf("Modified string: %s", str);
+
+    return 0;
+}
