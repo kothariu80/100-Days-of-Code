@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+#define MAX_SIZE 100 // Maximum string size
+
+int main() {
+    char str[MAX_SIZE];
+    int i = 0;
+
+    // Input string from user
+    printf("Enter any string: ");
+    // Using fgets instead of gets for safety against buffer overflow
+    fgets(str, sizeof(str), stdin);
+
+    // Loop through each character of the string until the null terminator
+    while (str[i] != '\0') {
+        // If character is lowercase, convert to uppercase
+        if (str[i] >= 'a' && str[i] <= 'z') {
+            str[i] = str[i] - 32;
+        }
+        // If character is uppercase, convert to lowercase
+        else if (str[i] >= 'A' && str[i] <= 'Z') {
+            str[i] = str[i] + 32;
+        }
+        i++;
+    }
+
+    // Display the toggled string
+    printf("Toggled string: %s", str);
+
+    return 0;
+}
