@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int main() {
+    char str[200];
+    int spaces = 0, digits = 0, special = 0, alphabets = 0;
+    int i = 0;
+
+    printf("Enter a string: ");
+    // fgets safely reads an entire line of text including spaces
+    fgets(str, sizeof(str), stdin);
+
+    // Loop through the string until the null terminator is reached
+    while (str[i] != '\0') {
+        // Check for alphabets (both lowercase and uppercase)
+        if ((str[i] >= 'a' && str[i] <= 'z') || (str[i] >= 'A' && str[i] <= 'Z')) {
+            alphabets++;
+        }
+        // Check for numeric digits
+        else if (str[i] >= '0' && str[i] <= '9') {
+            digits++;
+        }
+        // Check for space characters
+        else if (str[i] == ' ') {
+            spaces++;
+        }
+        // Exclude newline character added by fgets, everything else is a special character
+        else if (str[i] != '\n') {
+            special++;
+        }
+        
+        i++; // Move to the next character
+    }
+
+    // Display the final counts
+    printf("\n--- Character Analysis ---\n");
+    printf("Spaces: %d\n", spaces);
+    printf("Digits: %d\n", digits);
+    printf("Special Characters: %d\n", special);
+    printf("Alphabets: %d\n", alphabets);
+
+    return 0;
+}
