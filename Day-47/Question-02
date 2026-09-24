@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_LIMIT 200
+
+int main() {
+    char sentence[MAX_LIMIT];
+    int i = 0, current_len = 0, max_len = 0;
+    int current_start = 0, max_start = 0;
+
+    printf("Enter a sentence: ");
+    // Reads a full line of text including spaces
+    fgets(sentence, sizeof(sentence), stdin);
+
+    // Remove trailing newline character added by fgets if present
+    sentence[strcspn(sentence, "\n")] = '\0';
+
+    while (1) {
+        // Check if the current character is a word character or end of string
+        if (sentence[i] != ' ' && sentence[i] != '\0' && sentence[i] != '\t') {
+            if (current_len == 0) {
+                current_start = i; // Mark the beginning of a new word
+            }
+            current_len++;
+        } else {
+            // End of a word reached, evaluate its length
+            if (current_len > max_len) {
+                max_len = current_len;
+                max_start = current_start; // Store the start index of the longest word
+            }
+            current_len = 0; // Reset length for the next word
+        }
+
+        // Break the loop if we hit the null terminator
+        if (sentence[i] == '\0') {
+            break;
+        }
+        i++;
+    }
+
+    // Print the results
+    printf("\nThe longest word is: ");
+    for (i = max_start; i < max_start + max_len; i++) {
+        putchar(sentence[i]);
+    }
+    printf("\nLength of the longest word: %d\n", max_len);
+
+    return 0;
+}
