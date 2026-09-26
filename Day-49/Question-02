@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void printInitialsWithSurname(char *name) {
+    int length = strlen(name);
+    
+    // 1. Trim trailing spaces if any
+    while (length > 0 && isspace(name[length - 1])) {
+        length--;
+    }
+    
+    // 2. Find the starting index of the last name (surname)
+    int lastSpaceIndex = -1;
+    for (int i = length - 1; i >= 0; i--) {
+        if (name[i] == ' ') {
+            lastSpaceIndex = i;
+            break;
+        }
+    }
+    
+    // 3. Print the initials for all parts before the surname
+    int i = 0;
+    // Handle the very first character if it's not a space
+    if (i < lastSpaceIndex && !isspace(name[i])) {
+        printf("%c. ", toupper(name[i]));
+    }
+    
+    // Loop through the string up to the start of the surname
+    while (i < lastSpaceIndex) {
+        if (name[i] == ' ') {
+            // Skip consecutive spaces
+            while (i < lastSpaceIndex && name[i] == ' ') {
+                i++;
+            }
+            // Print the initial of the next word segment
+            if (i < lastSpaceIndex) {
+                printf("%c. ", toupper(name[i]));
+            }
+        }
+        i++;
+    }
+    
+    // 4. Print the final surname in full
+    // Move index past the last spaces directly to the surname
+    if (lastSpaceIndex != -1) {
+        i = lastSpaceIndex;
+        while (i < length && name[i] == ' ') {
+            i++;
+        }
+    } else {
+        i = 0; // If there is no space, the entire input is treated as the surname
+    }
+    
+    // Print the remaining surname characters
+    while (i < length) {
+        printf("%c", name[i]);
+        i++;
+    }
+    printf("\n");
+}
+
+int main() {
+    char name[100];
+    
+    printf("Enter a full name: ");
+    // Read the line including spaces safely
+    fgets(name, sizeof(name), stdin);
+    
+    // Remove the trailing newline character added by fgets
+    name[strcspn(name, "\n")] = '\0';
+    
+    printf("Formatted Name: ");
+    printInitialsWithSurname(name);
+    
+    return 0;
+}
