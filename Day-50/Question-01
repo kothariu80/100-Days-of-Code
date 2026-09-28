@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    char input_date[12];
+    int day, month, year;
+
+    // Array of 3-letter month abbreviations
+    const char *months[] = {
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
+
+    // Prompt user for input date string
+    printf("Enter date in dd/mm/yyyy format (e.g., 25/04/2026): ");
+    if (scanf("%11s", input_date) != 1) {
+        printf("Invalid input.\n");
+        return 1;
+    }
+
+    // Parse day, month, and year from the input string
+    if (sscanf(input_date, "%d/%d/%d", &day, &month, &year) != 3) {
+        printf("Invalid date format parsed.\n");
+        return 1;
+    }
+
+    // Validate month range (1 to 12)
+    if (month < 1 || month > 12) {
+        printf("Error: Month must be between 01 and 12.\n");
+        return 1;
+    }
+
+    // Print formatted date
+    printf("Formatted date: %02d-%s-%d\n", day, months[month - 1], year);
+
+    return 0;
+}
