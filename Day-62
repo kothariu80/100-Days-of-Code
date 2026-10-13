@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function to find the maximum sum of a contiguous subarray
+int maxSubarraySum(int arr[], int n) {
+    // Initialize max_so_far and max_ending_here with the first element
+    int max_so_far = arr[0];
+    int max_ending_here = arr[0];
+
+    for (int i = 1; i < n; i++) {
+        // Decide whether to add the current element to the existing subarray 
+        // or start a new subarray from the current element
+        if (arr[i] > max_ending_here + arr[i]) {
+            max_ending_here = arr[i];
+        } else {
+            max_ending_here = max_ending_here + arr[i];
+        }
+
+        // Update the maximum sum found so far
+        if (max_ending_here > max_so_far) {
+            max_so_far = max_ending_here;
+        }
+    }
+    
+    return max_so_far;
+}
+
+int main() {
+    int n;
+
+    printf("Enter the number of elements in the array: ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("Invalid array size.\n");
+        return 1;
+    }
+
+    int *arr = (int *)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    printf("Enter %d elements:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    int max_sum = maxSubarraySum(arr, n);
+    printf("Maximum sum of contiguous subarray: %d\n", max_sum);
+
+    // Free dynamically allocated memory
+    free(arr);
+    return 0;
+}
