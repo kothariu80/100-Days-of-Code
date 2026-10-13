@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+void findPreviousGreater(int arr[], int n) {
+    // Traverse each element from the beginning of the array
+    for (int i = 0; i < n; i++) {
+        int prevGreater = -1;
+
+        // Traverse elements to the left of the current element
+        for (int j = i - 1; j >= 0; j--) {
+            if (arr[j] > arr[i]) {
+                prevGreater = arr[j];
+                break; // Nearest left greater element found
+            }
+        }
+
+        // Print the previous greater element
+        printf("%d", prevGreater);
+
+        // Format output with a comma separated fashion except for the last element
+        if (i < n - 1) {
+            printf(", ");
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int n;
+
+    // Take the size of the array as input
+    printf("Enter number of elements: ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("Invalid input size.\n");
+        return 1;
+    }
+
+    int arr[n];
+
+    // Take the array elements as input
+    printf("Enter %d integers: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Process and print previous greater elements
+    printf("Previous Greater Elements: ");
+    findPreviousGreater(arr, n);
+
+    return 0;
+}
