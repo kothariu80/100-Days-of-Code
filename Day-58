@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+/**
+ * Calculates the product of all elements except self.
+ * @param nums The input array.
+ * @param numsSize The size of the input array.
+ * @return A dynamically allocated array containing the result.
+ */
+int* productExceptSelf(int* nums, int numsSize) {
+    // Dynamically allocate memory for the answer array
+    int* answer = (int*)malloc(numsSize * sizeof(int));
+    if (answer == NULL) {
+        return NULL; // Memory allocation failed
+    }
+
+    // Pass 1: Calculate the prefix products
+    // answer[i] will store the product of all elements to the left of index i
+    int prefix = 1;
+    for (int i = 0; i < numsSize; i++) {
+        answer[i] = prefix;
+        prefix *= nums[i];
+    }
+
+    // Pass 2: Calculate the suffix products and combine them
+    // Multiply answer[i] by the product of all elements to the right of index i
+    int suffix = 1;
+    for (int i = numsSize - 1; i >= 0; i--) {
+        answer[i] *= suffix;
+        suffix *= nums[i];
+    }
+
+    return answer;
+}
+
+// Driver code to test the function
+int main() {
+    int nums[] = {1, 2, 3, 4};
+    int numsSize = sizeof(nums) / sizeof(nums[0]);
+
+    printf("Input Array: ");
+    for (int i = 0; i < numsSize; i++) {
+        printf("%d ", nums[i]);
+    }
+    printf("\n");
+
+    // Get the result array
+    int* result = productExceptSelf(nums, numsSize);
+
+    if (result != NULL) {
+        printf("Output Array: ");
+        for (int i = 0; i < numsSize; i++) {
+            printf("%d ", result[i]);
+        }
+        printf("\n");
+
+        // Free the dynamically allocated memory
+        free(result);
+    }
+
+    return 0;
+}
