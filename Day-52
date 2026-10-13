@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+// Function to find the index of the ceil of x
+int findCeilIndex(int arr[], int n, int x) {
+    int low = 0;
+    int high = n - 1;
+    int ans = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] >= x) {
+            ans = mid;       // Record the current index as a potential ceil
+            high = mid - 1;  // Look for a smaller index on the left side
+        } else {
+            low = mid + 1;   // The element is too small, look on the right side
+        }
+    }
+
+    return ans;
+}
+
+int main() {
+    int n, x;
+
+    // Take array size as input
+    printf("Enter the number of elements in the sorted array: ");
+    if (scanf("%d", &n) != 1 || n <= 0) {
+        printf("-1\n");
+        return 0;
+    }
+
+    int arr[n];
+    printf("Enter %d sorted elements: ", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Take target element x as input
+    printf("Enter the value of x: ");
+    scanf("%d", &x);
+
+    // Find and print the index
+    int result = findCeilIndex(arr, n, x);
+    printf("Index of ceil: %d\n", result);
+
+    return 0;
+}
