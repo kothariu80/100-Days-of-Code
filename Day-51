@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+// Function to find the first occurrence of the target
+int findFirst(int nums[], int size, int target) {
+    int low = 0, high = size - 1;
+    int firstIdx = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (nums[mid] == target) {
+            firstIdx = mid;   // Record the index
+            high = mid - 1;  // Keep searching left for earlier occurrence
+        } else if (nums[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return firstIdx;
+}
+
+// Function to find the last occurrence of the target
+int findLast(int nums[], int size, int target) {
+    int low = 0, high = size - 1;
+    int lastIdx = -1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (nums[mid] == target) {
+            lastIdx = mid;   // Record the index
+            low = mid + 1;   // Keep searching right for later occurrence
+        } else if (nums[mid] < target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return lastIdx;
+}
+
+int main() {
+    // Example sorted array with repeated elements
+    int nums[] = {1, 3, 5, 5, 5, 5, 67, 123, 125};
+    int size = sizeof(nums) / sizeof(nums[0]);
+    int target = 5;
+
+    // Call the binary search functions
+    int firstIdx = findFirst(nums, size, target);
+    int lastIdx = findLast(nums, size, target);
+
+    // Print the results
+    printf("First occurrence index: %d\n", firstIdx);
+    printf("Last occurrence index: %d\n", lastIdx);
+
+    return 0;
+}
