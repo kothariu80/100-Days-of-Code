@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+    FILE *file;
+    char name[50];
+    int age;
+
+    // Open file in write mode
+    file = fopen("info.txt", "w");
+
+    if (file == NULL) {
+        printf("Error opening file.\n");
+        return 1;
+    }
+
+    // Take input from user
+    printf("Enter your name: ");
+    scanf(" %[^\n]", name);
+
+    printf("Enter your age: ");
+    scanf("%d", &age);
+
+    // Write data to file
+    fprintf(file, "Name: %s\n", name);
+    fprintf(file, "Age: %d\n", age);
+
+    // Close the file
+    fclose(file);
+
+    printf("Data successfully saved to info.txt\n");
+
+    return 0;
+}
