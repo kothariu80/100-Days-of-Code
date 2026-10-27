@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+int main() {
+    FILE *source, *destination;
+    char sourceFile[100], destinationFile[100];
+    int ch;
+
+    printf("Enter source file name: ");
+    scanf("%s", sourceFile);
+
+    printf("Enter destination file name: ");
+    scanf("%s", destinationFile);
+
+    // Open source file in read mode
+    source = fopen(sourceFile, "r");
+
+    if (source == NULL) {
+        printf("Error: Source file could not be opened.\n");
+        return 1;
+    }
+
+    // Open destination file in write mode
+    destination = fopen(destinationFile, "w");
+
+    if (destination == NULL) {
+        printf("Error: Destination file could not be opened.\n");
+        fclose(source);
+        return 1;
+    }
+
+    // Copy character by character
+    while ((ch = fgetc(source)) != EOF) {
+        fputc(ch, destination);
+    }
+
+    printf("File copied successfully.\n");
+
+    fclose(source);
+    fclose(destination);
+
+    return 0;
+}
